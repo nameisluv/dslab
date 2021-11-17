@@ -1,3 +1,4 @@
 # C-Programs-on-data-structures
-For college\n
+For college 
+
 follow on insta:name_is_luv
