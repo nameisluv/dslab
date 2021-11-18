@@ -67,7 +67,7 @@ void display()
 int main()
 {
     int choice;
-    printf("enter the size if the linear queue\n");
+    printf("enter the size if the Circular queue\n");
     scanf("%d",&n);
     while(1){
         printf("\n*** CIRCULAR Q MENU ***\n");
