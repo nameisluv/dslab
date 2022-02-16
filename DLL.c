@@ -1,142 +1,218 @@
 #include <stdio.h>
-#include<stdlib.h>
-#define MALLOC(p,n,type) \
-p=(type*)malloc(n*sizeof(type)); \
-if(p==NULL){ \
-    printf("Insufficient memory \n"); \
-    exit(0); \
+#include <stdlib.h>
+typedef struct Node
+{
+    int data;
+    struct Node *next;
+    struct Node *prev;
+} Node;
+
+Node *head = NULL;
+Node *tail = NULL;
+Node *CreateElement()
+
+{
+    Node *newptr = (Node *)malloc(sizeof(Node));
+    printf("Enter the element ");
+    scanf("%d", &newptr->data);
+    newptr->next = NULL;
+    newptr->prev = NULL;
 }
 
-struct node{
-    struct node *llink;
-    int info;
-    struct node *rlink;
-};
+void InsertBegin()
+{
+    Node *newptr = CreateElement();
 
-typedef struct node *NODE;
-
-NODE insert(NODE first,int item,int pos){
-    NODE temp,cur;
-    MALLOC(temp,1,struct node)
-    temp->llink=NULL;
-    temp->info=item;
-    temp->rlink=NULL;
-    if(pos==1){
-        temp->rlink=first;
-        return temp;
+    if (head == NULL)
+    {
+        head = newptr;
+        tail = newptr;
+        return;
     }
-    if(first==NULL && pos>1){
-        printf("Invalid position \n");
-        return first;
-    }
-    NODE prev=NULL;
-    cur=first;
-    int count=1;
-    while(cur!=NULL){
-        prev=cur;
-        cur=cur->rlink;
-        count++;
-        if(count==pos)
-            break;
-    }
-    if(pos>count){
-        printf("Invalid position \n");
-        return first;
-    }
-    prev->rlink=temp;
-    temp->llink=prev;
-    temp->rlink=cur;
-    if(cur!=NULL)
-        cur->llink=temp;
-    return first;
+    head->prev = newptr;
+    newptr->next = head;
+    head = newptr;
 }
 
-NODE delete(NODE first,int pos){
-    NODE temp,cur;
-    if(first==NULL){
-        printf("Empty list \n");
-        return first;
+void InsertEnd()
+{
+    Node *ptr = tail;
+    if(ptr==NULL){
+        InsertBegin();
+        return;
     }
-    if(pos==1){
-        temp=first;
-        first=first->rlink;
-        printf("Element deleted is %d\n",temp->info);
+    Node *newPtr =CreateElement();
+    ptr->next = newPtr;
+    newPtr->prev=ptr;
+    tail = newPtr;
+}
+
+Node *Search(int data)
+{
+    Node *ptr = head;
+    if (head == NULL)
+        return NULL;
+    while (ptr != NULL)
+    {
+        if (ptr->data == data)
+            return ptr;
+        ptr = ptr->next;
+    }
+    return NULL;
+}
+
+void InsertAny()
+{
+    if (head == NULL)
+    {
+        InsertBegin();
+        return;
+    }
+
+    int pos, datapos;
+    printf("Enter 0 for left and 1 for right ");
+    scanf("%d", &pos);
+    printf("enter the position whose adjacent is to be inserted ");
+    scanf("%d", &datapos);
+
+    Node *ptr = Search(datapos);
+
+    if (ptr == NULL)
+    {
+        printf("element does not exist");
+        return;
+    }
+    Node *newptr = CreateElement();
+
+    if (pos == 0)
+    {
+        if (ptr == head)
+        {
+            newptr->next = head;
+            head->prev= newptr;
+            head = newptr;
+            return;
+        }
+
+        Node *temp = ptr->prev;
+
+        newptr->prev= temp;
+        newptr->next = ptr;
+        temp->next = newptr;
+        ptr->prev= newptr;
+        return;
+    }
+
+    if (pos == 1)
+    {
+        if(ptr==tail){
+            ptr->next = newptr;
+            newptr->prev = ptr;
+            tail = newptr;
+            return;
+        }
+        newptr->next = ptr->next;
+        newptr->prev = ptr;
+        ptr->next->prev = newptr;
+        ptr->next = newptr;
+    }
+}
+
+void Delete()
+{
+
+    Node *ptr = head;
+    if (head == NULL)
+    {
+        printf("no elements exist");
+        return;
+    }
+    int eee;
+    printf("Enter data to delete\n");
+    scanf("%d", &eee);
+
+    Node *temp = Search(eee);
+    if (temp == NULL)
+    {
+        printf("elements not exist");
+        return;
+    }
+    if (temp == head)
+    {
+        
+        head = head->next;
+        head->prev = NULL;
         free(temp);
-        return first;
+        return;
     }
-    NODE prev=NULL;
-    cur=first;
-    int count=1;
-    while(cur!=NULL){
-        prev=cur;
-        cur=cur->rlink;
-        if(cur!=NULL)
-            count++;
-        if(count==pos)
-            break;
+    if(temp==tail){
+        tail = tail->prev;
+        tail->next = NULL;
+        free(temp);
+        return;
     }
-    if(pos>count){
-        printf("Invalid position \n");
-        return first;
-    }
-    temp=cur;
-    prev->rlink=cur->rlink;
-    if(cur->rlink!=NULL)
-        cur->rlink->llink=prev;
-    printf("Element deleted is %d\n",temp->info);
+    ptr = temp->prev;
+    temp->next->prev = ptr;
+    ptr->next = temp->next;
     free(temp);
-    return first;
 }
 
-NODE display(NODE first){
-    if(first==NULL){
-        printf("Empty list\n");
-        return first;
+void Display()
+{
+    if (head == NULL)
+    {
+        printf("NOTHING TO DISPLAY");
+        return;
     }
-    NODE cur;
-    cur=first;
-    while(cur!=NULL){
-        printf("%d ",cur->info);
-        cur=cur->rlink;
+    Node *ptr = head;
+    while (ptr != NULL)
+    {
+        printf("%d ", ptr->data);
+        ptr = ptr->next;
     }
-    printf("\n");
-    return first;
 }
 
-void main(){
-    int item,ch,pos;
-    NODE first=NULL;
-    printf("1.Insert at pos 2.Delete at pos 3.display 4.exit \n");
-    while(1){
-        printf("Enter a choice \n");
-        scanf("%d",&ch);
-        printf("\n");
+void main(void)
+{
+    int ch;
+    int ele;
+    while (1)
+    {
+        printf("0. Menu\n1. Search an Element\n2. Insert at Beginning\n3. Insert at End\n4. Insert Any\n5. Delete\n6. Display\nEnter your choice\n");
+        scanf("%d", &ch);
         switch (ch)
         {
+
         case 1:
-            printf("Enter an element to insert\n");
-            scanf("%d",&item);
-            printf("Enter the position to insert \n");
-            scanf("%d",&pos);
-            first=insert(first,item,pos);
-            break;
 
+            printf("Enter the data to search\n");
+            scanf("%d", &ele);
+            Node *a = Search(ele);
+            if (a == NULL)
+                printf("Element not present");
+            else
+                printf("Element present");
+            break;
         case 2:
-            printf("Enter position to delete \n");
-            scanf("%d",&pos);
-            first=delete(first,pos);
+            InsertBegin();
             break;
-
         case 3:
-            display(first);
+            InsertEnd();
             break;
-        
         case 4:
-            exit(0);
-
-        default:
-            printf("Wrong choice\n");
+            InsertAny();
             break;
+        case 5:
+            Delete();
+            break;
+        case 6:
+            Display();
+            printf("\n");
+            break;
+        case 7:
+            exit(0);
+        default:
+            printf("Invalid input");
         }
     }
 }
