@@ -85,7 +85,6 @@ void insertany()
     if (pos == 0)
     {
         if (ptr == head)
-
         {
             newptr->next = head;
             head = newptr;
@@ -143,10 +142,11 @@ void display()
     node *ptr = head;
     while (ptr != NULL)
     {
-        printf("%d \n ", ptr->data);
+        printf("%d ", ptr->data);
         ptr = ptr->next;
     }
 }
+
 
 void main(void)
 {
@@ -154,8 +154,8 @@ void main(void)
 
     while (1)
     {
-        printf("\n 1 insertbegin \n 2 insetafter \n 3 insertany \n 4 delete \n 5 display");
-        printf(" \n enter your choice");
+        printf("\n 1 insertbegin \n 2 insetafter \n 3 insertany \n 4 delete any \n 5 display\n 6 exit");
+        printf(" \n enter your choice\n");
         scanf("%d", &ch);
 
         switch (ch)
