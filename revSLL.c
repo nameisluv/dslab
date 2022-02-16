@@ -6,23 +6,20 @@ typedef struct node{
     struct node *next;
 }node;
 
-int data;
-node *ptr=NULL,*head=NULL,*temp;
+node *ptr = NULL,*head = NULL,*temp;
 
 void create(){
     if(head==NULL){
         head=(node*)malloc(sizeof(node));
         printf("Enter the data :");
-        scanf("%d",&data);
-        head->data=data;
+        scanf("%d",&head->data);
         head->next=NULL;
         temp=head;
     }
     else{
          ptr=(node*)malloc(sizeof(node));
         printf("Enter the data :");
-        scanf("%d",&data);
-        ptr->data=data;
+        scanf("%d",&ptr->data);
         ptr->next=NULL;
         temp->next=ptr;
         temp=temp->next;
@@ -57,7 +54,7 @@ void reverse()
 }
 
 void display(){
-       struct node *temp;
+    struct node *temp;
     if(head == NULL)
     {
         printf("List is empty.");
@@ -74,7 +71,7 @@ void display(){
 }
 void main(){
     int n,i;
-    printf("Enter the number of elements");
+    printf("Enter the number of elements\n");
     scanf("%d",&n);
     for(i=0;i<n;i++){
         create();
