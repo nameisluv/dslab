@@ -35,10 +35,8 @@ node *create(node *root, int data)
 void display(struct node * root, int i)
 {
     int j;
-    if (root == NULL) 
-    {
-        return;
-    }
+    if (root == NULL)     
+        return;    
     else
     {
         display(root->right,i+1);
@@ -54,10 +52,8 @@ void display(struct node * root, int i)
 
 void inorder(node *root)
 {
-    if (root == NULL) 
-    {
-        return;
-    }
+    if (root == NULL)     
+       return;    
     else
     {
         inorder(root->left);
@@ -68,10 +64,8 @@ void inorder(node *root)
 
 void preorder(node *root)
 {
-    if (root == NULL) 
-    {
-        return;
-    }
+    if (root == NULL)     
+        return;    
     else
     {
         printf("| %d |",root->data);
@@ -83,9 +77,7 @@ void preorder(node *root)
 void postorder(node *root)
 {
     if (root == NULL) 
-    {
         return;
-    }
     else
     {
         postorder(root->left);
@@ -106,8 +98,7 @@ int main()
         printf("\n3. Preorder Traversal");
         printf("\n4. Postorder Traversal");
         printf("\n5. Display");
-		printf("\n6. Exit");
-        printf("\nEnter Choice : ");
+        printf("\n6. Exit");
         scanf("%d",&choice);
         switch(choice)
         {
