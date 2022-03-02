@@ -48,10 +48,8 @@ void main()
 
     printf("\nEnter a valid postfix expression (avoid whitespaces): ");
     scanf("%s",expression);
-
-    int length = strlen(expression);
-
-    for(int i = 0; i < length; i++)
+	
+    for(int i = 0; expression[i]!='\0' ; i++)
     {
         symbol = expression[i];
         if (isDigit(symbol))
