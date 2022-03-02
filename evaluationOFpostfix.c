@@ -1,5 +1,3 @@
-//Refer Postfix_Eval_Algorithm.txt 
-
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
