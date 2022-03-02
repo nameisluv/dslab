@@ -1,5 +1,3 @@
-//Creation and Traversal - Inorder, Preoder and Postorder
-
 #include <stdio.h>
 #include<stdlib.h>
 
@@ -25,22 +23,14 @@ node *create(node *root, int data)
     else
     {
         if (data < root->data)
-        {
-            root->left = create(root->left, data);
-        }
+            root->left = create(root->left, data);        
         else if (data > root->data)
-        {
-            root->right = create(root->right, data);
-        }
-        else
-        {
-            printf("\nData already present in the tree.");
-        }
+            root->right = create(root->right, data);        
+        else        
+            printf("\nData already present in the tree.");        
     }
     return root;
-
 }
-
 
 void display(struct node * root, int i)
 {
@@ -101,10 +91,8 @@ void postorder(node *root)
         postorder(root->left);
         postorder(root->right);
         printf("| %d |",root->data);
-
     }
 }
-
 
 int main()
 {
