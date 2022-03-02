@@ -108,7 +108,7 @@ void insertany()
     }
 }
 
-void delete ()
+void delete()
 {
     if (head == NULL)
     {
