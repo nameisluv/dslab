@@ -36,11 +36,6 @@ double evaluate(double op1, double op2, char symbol)
     }
 }
 
-int isDigit(char symbol)
-{
-	return (symbol >= '0' && symbol <= '9');
-}
-
 void main()
 {
     char expression[50], symbol;
@@ -52,7 +47,7 @@ void main()
     for(int i = 0; expression[i]!='\0' ; i++)
     {
         symbol = expression[i];
-        if (isDigit(symbol))
+        if (symbol >= '0' && symbol <= '9')
         {   
             push(symbol - '0');
         }
